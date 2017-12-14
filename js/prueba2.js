@@ -231,6 +231,7 @@ function eventoVuelveTecla(event) {
  sueltaTecla(event.target);
 }
 
+//Formato de botones
 function presionaTecla(elemento) {
  var x = elemento.id;
  if (x == "1" || x == "2" || x == "3" || x == "0" || x == "igual" || x == "punto") {
