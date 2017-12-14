@@ -79,23 +79,29 @@ window.onload = function calculadora(){ //Acciones tras cargar la página
   dividido.onclick = function(e){
       agregarOperacion("/");
     }
-    igual.onclick = function(e){
+	raiz.onclick = function(e){
+		raizCu();
+	  }
+  igual.onclick = function(e){
       resultadoIgual();
     }
+		function raizCu(){
+			numeroA = display.textContent;
+			display.textContent =validarDigitos(Math.sqrt(numeroA));
+		}
   // insertar valor al display
 	function insertaNumero(valor) {
-		var elemento = document.getElementById('display')
 
 		if (sessionStorage.result == 1) {
-			elemento.innerHTML = valor;
+			display.textContent = valor;
 			sessionStorage.result = 0
 		} else {
-    			if (elemento.innerHTML == '0') {
-				elemento.innerHTML = valor;
+    			if (display.textContent == '0') {
+				display.textContent = valor;
 			} else {
-				var displayNew = elemento.innerHTML + valor
+				var displayNew = display.textContent + valor
 				var displayOptimo = validarDigitos(displayNew)
-				elemento.innerHTML = displayOptimo;
+				display.textContent = displayOptimo;
 			}
 		}
     marcarNumeros();
@@ -172,8 +178,7 @@ window.onload = function calculadora(){ //Acciones tras cargar la página
   //realizar nueva operacion
 	 function agregarOperacion(valor) {
 
-		var elemento = document.getElementById('display')
-		var valorDisplay = Number(elemento.innerHTML)
+		var valorDisplay = Number(display.textContent)
 		var valorOperacion = valor
 
 		if (sessionStorage.result == 1) {
@@ -196,16 +201,15 @@ window.onload = function calculadora(){ //Acciones tras cargar la página
 		sessionStorage.countOperadorIgual = 0
 		sessionStorage.operacionActiva = 1;
 		sessionStorage.operacion = valorOperacion;
-		elemento.innerHTML = '';
+		display.textContent = '';
 	}
 
 // funcion igual para que vaya sumando el ultimo valor al presionarla
 	 function resultadoIgual() {
 
-		var elemento = document.getElementById('display');
 		var valorDisplay = sessionStorage.valor
 		var valorOperacion = sessionStorage.operacion
-		var valorDisplayNew = elemento.innerHTML
+		var valorDisplayNew = display.textContent
 
 		if (valorDisplayNew == '') {
 			valorDisplayNew = sessionStorage.valorGuardado
@@ -213,8 +217,9 @@ window.onload = function calculadora(){ //Acciones tras cargar la página
 			sessionStorage.valor = valorDisplayNew
 			sessionStorage.countOperadorIgual = 1
 		}
-		elemento.innerHTML = resultado(valorDisplay, valorDisplayNew, valorOperacion, 0)
+		display.textContent = resultado(valorDisplay, valorDisplayNew, valorOperacion, 0)
 	}
+	
 // disminuir tamaño de las teclas al presionarlas
 function marcarNumeros() {
 var listaNodosNumeros = document.querySelectorAll("#calculadoraFondo .teclado img.tecla");
